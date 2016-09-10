@@ -1,12 +1,16 @@
 /* Main Server for the app */
-var app = require("express")();
+var path = require("path");
+var express = require("express");
+var app = express();
 var httpServer = require("http").Server(app);
 var io = require("socket.io")(httpServer);
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTES - may move routes into it's own module as the
 // server API grows.
 app.get("/", function(req, res) {
-	res.send("<h1>Bepis Chat - nothing to see here (yet)</h1>");
+	res.sendFile("index.html");
 });
 
 // Socket listening events
@@ -22,6 +26,6 @@ io.on("connection", function(socket) {
 
 // Begin listening for incoming requests - default is 3000
 var port = process.env.PORT || 3000;
-app.listen(process.env.PORT || 3000, function() {
+httpServer.listen(process.env.PORT || 3000, function() {
 	console.log("Bepis Chat - Server started @ PORT " + port);
 });
