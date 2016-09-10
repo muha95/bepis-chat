@@ -4,6 +4,9 @@
   "description": "Simple chatting app built with Node.JS and Socket.IO",
   "main": "app.js",
   "scripts": {
+    "build-front-end": "bower install",
+    "build-back-end": "npm install",
+    "start": "npm run build-back-end && npm run build-front-end && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
