@@ -5,9 +5,17 @@
 	</head>
 	<body>
 		<h1>Bepis Chat</h1>
-		
-		<!-- Since Socket.IO provides a client just load it from there  -->
-		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript" src="js/client-main.js"></script>
+		<h2 id="connection-status">Status: Disconnected</h2>
+		<ul id="container-messages">
+			
+		</ul>
+		<form action="">
+			<input id="msg-input" type="text" required></input>
+			<button type="submit">Send</button>
+		</form>
 	</body>
+	<!-- Since Socket.IO provides a client just load it from there  -->
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="vendor/js/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="js/client-main.js"></script>
 </html>
