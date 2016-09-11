@@ -18,12 +18,12 @@ app.get("/", function(req, res) {
 // - Handle broadcasting emitted client events
 // - There will be more crap to do.
 io.on("connection", function(socket) {
-	console.log("A client connected! - " + socket.conn.remoteAddress);
+	console.log("A client connected! - " + socket.handshake.address);
 	
 	socket.emit("bepis-message", "Server: Connection Established!");
 	
 	socket.on("disconnect", function() {
-		console.log("A client disconnected!" + socket.conn.remoteAddress);
+		console.log("A client disconnected! - " + socket.handshake.address);
 	});
 	
 	socket.on("bepis-message", function(msg) {
