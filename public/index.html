@@ -2,17 +2,24 @@
 <html>
 	<head>
 		<title>Bepis Chat</title>
+		<link type="text/css" href="css/styles.css" rel="stylesheet" title="Default"/>
 	</head>
 	<body>
-		<h1>Bepis Chat</h1>
-		<h2 id="connection-status">Status: Disconnected</h2>
-		<ul id="container-messages">
-			
-		</ul>
-		<form action="">
-			<input id="msg-input" type="text" required></input>
-			<button type="submit">Send</button>
-		</form>
+		<div class="container-title">
+			<h1>Bepis Chat</h1>
+			<h2 id="connection-status">Status: Disconnected</h2>
+		</div>
+		
+		<div class="container-messages">
+			<ul id="message-list"></ul>
+		</div>
+		
+		<div class="container-input">
+			<form action="">
+				<input id="msg-input" type="text" required></input>
+				<button type="submit">Send</button>
+			</form>
+		</div>
 	</body>
 	<!-- Since Socket.IO provides a client just load it from there  -->
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>

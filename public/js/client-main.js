@@ -14,12 +14,14 @@ $("form").submit(function() {
 
 socket.on("connect", function() {
 	$("#connection-status").text("Status: Connected");
+	$("#connection-status").addClass("connection-status-connected");
 });
 
 socket.on("disconnect", function() {
 	$("#connection-status").text("Status: Disconnected");
+	$("#connection-status").removeClass("connection-status-connected");
 });
 
 socket.on("bepis-message", function(msg) {
-	$("#container-messages").append($("<li>").text(msg));
+	$("#message-list").append($("<li>").text(">	 " + msg));
 });
