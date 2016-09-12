@@ -2,27 +2,35 @@
 <html>
 	<head>
 		<title>Bepis Chat</title>
+		<link href="https://fonts.googleapis.com/css?family=Lobster|Play" rel="stylesheet">
+		<link type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 		<link type="text/css" href="css/styles.css" rel="stylesheet" title="Default"/>
 	</head>
 	<body>
-		<div class="container-title">
-			<h1>Bepis Chat</h1>
-			<h2 id="connection-status">Status: Disconnected</h2>
-		</div>
-		
-		<div class="container-messages">
-			<ul id="message-list"></ul>
-		</div>
-		
-		<div class="container-input">
-			<form action="">
-				<input id="msg-input" type="text" required></input>
-				<button type="submit">Send</button>
-			</form>
+		<div class="container-fluid">
+			<div class="container-title">
+				<h1>Bepis Chat</h1>
+				<p class="lead"><span id="connection-status" class="label label-danger">Disconnected</span></p>
+			</div>
+			
+			<div class="container-messages">
+				<ul id="message-list"></ul>
+			</div>
+			
+			<div class="container-input">
+				<form action="">
+					<div class="input-group">
+						<input id="msg-input" type="text" class="form-control" placeholder="Enter a message" required>
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-send-message" type="submit">Send</button>
+						</span>
+					</div>	
+				</form>		
+			</div>
 		</div>
 	</body>
 	<!-- Since Socket.IO provides a client just load it from there  -->
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="vendor/js/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="js/client-main.js"></script>
 </html>
