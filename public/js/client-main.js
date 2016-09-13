@@ -19,7 +19,7 @@ function applyMessageBoxHeight() {
 	var titleHeight = $(".container-title").outerHeight();
 	var inputHeight = $(".container-input").outerHeight();
 	var messagesHeight = $(document).outerHeight() - titleHeight - inputHeight;
-	
+
 	$(".container-messages").css("height", messagesHeight);
 }
 
@@ -41,5 +41,7 @@ socket.on("disconnect", function() {
 
 socket.on("bepis-message", function(msg) {
 	$("#message-list").append($("<li>").text(">	 " + msg));
+	var msgContainer = $(".container-messages");
+	var msgContainerScrollHeight = msgContainer[0].scrollHeight;
+	$(".container-messages").scrollTop(msgContainerScrollHeight);
 });
-
