@@ -4,17 +4,6 @@
 // Open a Socket.IO connection with the server.
 var socket = io();
 
-$("form").submit(function() {
-	if($("#msg-input").val()) {
-		socket.emit("bepis-message", $("#msg-input").val());
-		$("#msg-input").val("");
-		$(".btn-send-message").blur();
-		return false;
-	}
-});
-
-applyMessageBoxHeight();
-
 function applyMessageBoxHeight() {
 	var titleHeight = $(".container-title").outerHeight();
 	var inputHeight = $(".container-input").outerHeight();
@@ -23,9 +12,23 @@ function applyMessageBoxHeight() {
 	$(".container-messages").css("height", messagesHeight);
 }
 
+applyMessageBoxHeight();
+
+function scrollToBottom($element) {
+	if($element[0]) {
+		var scrollHeight = $element[0].scrollHeight;
+		if(scrollHeight && ($element.outerHeight() < scrollHeight)) {
+			$element.scrollTop(scrollHeight);
+		}
+	}
+}
+
 $(window).on("resize", function() {
 	applyMessageBoxHeight();
+	scrollToBottom($(".container-messages"));
 });
+
+/* SOCKET HANDLING */
 
 socket.on("connect", function() {
 	$("#connection-status").text("Connected");
@@ -41,7 +44,16 @@ socket.on("disconnect", function() {
 
 socket.on("bepis-message", function(msg) {
 	$("#message-list").append($("<li>").text(">	 " + msg));
-	var msgContainer = $(".container-messages");
-	var msgContainerScrollHeight = msgContainer[0].scrollHeight;
-	$(".container-messages").scrollTop(msgContainerScrollHeight);
+	scrollToBottom($(".container-messages"));
 });
+
+$("form").submit(function() {
+	if($("#msg-input").val()) {
+		socket.emit("bepis-message", $("#msg-input").val());
+		$("#msg-input").val("");
+		$(".btn-send-message").blur();
+		return false;
+	}
+});
+
+/* =============== */
