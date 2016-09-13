@@ -8,6 +8,7 @@ $("form").submit(function() {
 	if($("#msg-input").val()) {
 		socket.emit("bepis-message", $("#msg-input").val());
 		$("#msg-input").val("");
+		$(".btn-send-message").blur();
 		return false;
 	}
 });
