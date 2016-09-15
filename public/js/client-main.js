@@ -23,9 +23,13 @@ function scrollToBottom($element) {
 	}
 }
 
-$(window).on("resize", function() {
+function updateLayout($element) {
 	applyMessageBoxHeight();
-	scrollToBottom($(".container-messages"));
+	scrollToBottom($element);
+}
+
+$(window).on("resize", function() {
+	updateLayout($(".container-messages"));
 });
 
 /* SOCKET HANDLING */
@@ -52,6 +56,8 @@ $("form").submit(function() {
 		socket.emit("bepis-message", $("#msg-input").val());
 		$("#msg-input").val("");
 		$(".btn-send-message").blur();
+		$("#msg-input").blur();
+		updateLayout($(".container-messages"));
 		return false;
 	}
 });
