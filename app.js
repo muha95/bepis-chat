@@ -2,8 +2,30 @@
 var path = require("path");
 var express = require("express");
 var app = express();
+var session = require("express-session");
+
 var httpServer = require("http").Server(app);
 var io = require("socket.io")(httpServer);
+
+app.use(session({
+	secret: "1234567890KBMD", // Key used to sign the cookie
+	resave: false, // Don't force-save session data
+	saveUninitialized: false, // Don't save an uninit'd session
+	cookie: { 
+		httpOnly: false, 
+		secure: true,
+		maxAge: 3600 * 12 * 1000 /* 12 hour age-limit */ 
+	}
+	// name - option is used for the cookie's name
+	// it is defaulted to connect.sid
+	
+	// genid - option is used to generate the session id
+	// by default uid-safe.genuuid() is used
+	
+	// store - option is defaulted to a new MemoryInstance
+	// this is not good for production env. as it's
+	// prone to memory leaks
+}));
 
 app.use(express.static(path.join(__dirname, "public")));
 
