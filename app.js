@@ -8,15 +8,17 @@ var bodyParser = require("body-parser");
 var httpServer = require("http").Server(app);
 var io = require("socket.io")(httpServer);
 
+var cookieOptions = {
+	httpOnly: app.get("env") !== "production",
+	secure: app.get("env") === "production",
+	maxAge: 3600 * 12 * 100
+}
+
 app.use(session({
 	secret: "1234567890KBMD", // Key used to sign the cookie
 	resave: false, // Don't force-save session data
 	saveUninitialized: false, // Don't save an uninit'd session
-	cookie: { 
-		//httpOnly: false, 
-		//secure: true,
-		maxAge: 3600 * 12 * 1000 /* 12 hour age-limit */ 
-	}
+	cookie: cookieOptions
 	// name - option is used for the cookie's name
 	// it is defaulted to connect.sid
 	
