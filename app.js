@@ -1,10 +1,18 @@
 /* Main Server for the app */
 var path = require("path");
 var express = require("express");
-var app = express();
 var session = require("express-session");
 var bodyParser = require("body-parser");
 
+var MONGODB_URI = process.env.MONGODB_URI;
+if(!MONGODB_URI) {
+	console.error("ERROR: MONGODB_URI Environment Variable undefined!");
+	process.exit(1);
+}
+
+var app = express();
+// Initialise a httpServer instance with the express instance
+// This is used to instantiate the socket.io library for the server.
 var httpServer = require("http").Server(app);
 var io = require("socket.io")(httpServer);
 
@@ -21,10 +29,10 @@ app.use(session({
 	cookie: cookieOptions
 	// name - option is used for the cookie's name
 	// it is defaulted to connect.sid
-	
+
 	// genid - option is used to generate the session id
 	// by default uid-safe.genuuid() is used
-	
+
 	// store - option is defaulted to a new MemoryInstance
 	// this is not good for production env. as it's
 	// prone to memory leaks
@@ -91,13 +99,13 @@ app.get("/logout", function(req, res) {
 // - There will be more crap to do.
 io.on("connection", function(socket) {
 	console.log("A client connected! - " + socket.handshake.address);
-	
+
 	socket.emit("bepis-message", "Server: Connection Established!");
-	
+
 	socket.on("disconnect", function() {
 		console.log("A client disconnected! - " + socket.handshake.address);
 	});
-	
+
 	socket.on("bepis-message", function(msg) {
 		io.emit("bepis-message", msg);
 	});
