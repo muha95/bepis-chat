@@ -4,7 +4,7 @@ var express = require("express");
 var session = require("express-session");
 var bodyParser = require("body-parser");
 
-var MONGODB_URI = process.env.MONGODB_URI || process.argv[2];
+var MONGODB_URI = process.argv[2] || process.env.MONGODB_URI;
 if(!MONGODB_URI) {
 	console.error("ERROR: MONGODB_URI Environment Variable undefined!");
 	console.error("Terminating server...");
