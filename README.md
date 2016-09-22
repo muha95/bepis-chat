@@ -1,5 +1,5 @@
 # bepis-chat
-![bepis-logo](http://ih0.redbubble.net/image.207066066.3353/fc,550x550,white.jpg)
+![bepis-logo](http://ih0.redbubble.net/image.207066066.3353/fc,550x550,white.jpg =250x)
 
 ## Simple chatting app using Socket.IO and Node.JS
 
@@ -11,11 +11,12 @@
 
 * Install Node.js on your machine (https://nodejs.org/en/download/), currently using v6.3.1-v6.4.1 for development.
   Should work with most versions, including LTS.
-* Define an environment variable *MONGODB_URI* which should contain a URI pointing to your local MongoDB server.
+* Define an environment variable **MONGODB_URI** which should contain a URI pointing to your local MongoDB server.
 * OR provide the URI as a command-line argument.
 
 ## Running the app
 
-1. Run *npm installDependencies* to install both Node and Bower dependencies
-2. Start the server with *node app.js*
-* OR you can combine the 2 steps above by running *npm start*
+1. Run **npm installDependencies** to install both Node and Bower dependencies
+2. Start the server with **node app.js**
+
+* OR you can combine the 2 steps above by running **npm start**
