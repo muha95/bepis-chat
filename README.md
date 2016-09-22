@@ -12,6 +12,7 @@ Config
 * Install Node.js on your machine (https://nodejs.org/en/download/), currently using v6.3.1-v6.4.1.
   Should work with most versions, including LTS.
 * Define an environment variable *MONGODB_URI* which should contain a URI pointing to your local MongoDB server.
+* OR provide the URI as a command-line argument.
 
 Running the app
 
