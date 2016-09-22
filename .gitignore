@@ -1,2 +1,7 @@
 node_modules/
 public/vendor/
+typings/
+.settings/
+.vscode/
+
+jsconfig.json

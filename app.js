@@ -19,7 +19,7 @@ var io = require("socket.io")(httpServer);
 var cookieOptions = {
 	httpOnly: app.get("env") !== "production",
 	secure: app.get("env") === "production",
-	maxAge: 3600 * 12 * 100
+	maxAge: 3600 * 12 * 1000
 }
 
 app.use(session({
