@@ -4,7 +4,7 @@ var express = require("express");
 var session = require("express-session");
 var bodyParser = require("body-parser");
 
-var usersRouter = require("./routers/users.js");
+var usersRouter = require("./routes/users.js");
 
 var MONGODB_URI = process.argv[2] || process.env.MONGODB_URI;
 if(!MONGODB_URI) {
