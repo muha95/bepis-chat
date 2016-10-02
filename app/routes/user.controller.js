@@ -1,15 +1,18 @@
 var router = require("express").Router();
 var path = require("path");
+var UserModel = require(__dirname, "..", "models", "user.model.js");
+
+var staticFilesPath = path.join(__dirname, "..", "public");
 
 module.exports = router;
 
 router.get("/login", function(req, res) {
-	res.sendFile(path.join(__dirname, "..", "public", "login.html"));
+	res.sendFile(path.join(staticFilesPath, "login.html"));
 });
 
 var users = {
 	test: "test123"
-}
+};
 
 router.post("/login", function(req, res) {
 	console.log(req.body);
@@ -25,6 +28,16 @@ router.post("/login", function(req, res) {
 			res.redirect("/login");
 		}
 	}
+});
+
+router.post("/register", function(req, res) {
+	var user = new UserModel({
+		username: req.body.username,
+		password: req.body.password,
+		email: req.body.email,
+    	firstName: req.body.firstName,
+    	lastName: req.body.lastName
+	});
 });
 
 router.get("/memberonly", function(req, res) {

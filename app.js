@@ -4,9 +4,18 @@ var express = require("express");
 var session = require("express-session");
 var bodyParser = require("body-parser");
 
-var usersRouter = require("./routes/users.js");
+var usersRouter = require("./app/routes/user.controller.js");
 
-var MONGODB_URI = process.argv[2] || process.env.MONGODB_URI;
+var MONGODB_URI;
+
+if(process.argv[2]) {
+	process.env.MONGODB_URI = process.argv[2];
+} else {
+	process.env.MONGODB_URI = "mongodb://localhost:27017/bepis";
+}
+
+MONGODB_URI = process.env.MONGODB_URI;
+
 if(!MONGODB_URI) {
 	console.error("ERROR: MONGODB_URI Environment Variable undefined!");
 	console.error("Terminating server...");
