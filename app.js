@@ -4,6 +4,8 @@ var express = require("express");
 var session = require("express-session");
 var bodyParser = require("body-parser");
 
+var usersRouter = require("./routers/users.js");
+
 var MONGODB_URI = process.argv[2] || process.env.MONGODB_URI;
 if(!MONGODB_URI) {
 	console.error("ERROR: MONGODB_URI Environment Variable undefined!");
@@ -46,53 +48,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTES - may move routes into it's own module as the
 // server API grows.
+
+
 app.get("/", function(req, res) {
 	res.sendFile("index.html");
 });
 
-app.get("/login", function(req, res) {
-	res.sendFile(path.join(__dirname, "public", "login.html"));
-});
-
-var users = {
-	test: "test123"
-}
-
-app.post("/login", function(req, res) {
-	console.log(req.body);
-	var username = req.body.username;
-	var password = req.body.password;
-	if(username && password) {
-		console.log(users[username]);
-		if(users[username] && users[username] === password) {
-			console.log("password matches");
-			req.session.username = req.body.username;
-			res.redirect("/memberonly");
-		} else {
-			res.redirect("/login");
-		}
-	}
-});
-
-app.get("/memberonly", function(req, res) {
-	var username = req.session.username;
-	if(!req.session || !username) {
-		return res.redirect("/login");
-	}
-	res.end("Welcome to the member-only area "+username+"!!!");
-});
-
-app.get("/logout", function(req, res) {
-	if(!req.session || !req.session.username) {
-		return res.end("You're not even logged in! Click <a href=\"/login\">here</a> to login!");
-	}
-	req.session.destroy(function(err) {
-		if(err) {
-			console.log("error: "+err.message);
-		}
-	});
-	res.redirect("/login");
-});
+app.use("/", usersRouter);
 
 // Socket listening events
 // TO DO:
