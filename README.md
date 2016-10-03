@@ -13,6 +13,7 @@
   Should work with most versions, including LTS.
 * Define an environment variable **MONGODB_URI** which should contain a URI pointing to your local MongoDB server.
 * OR provide the URI as a command-line argument.
+* Otherwise there will be a default URI provided - mongodb://localhost:27017/bepis
 
 ## Running the app
 

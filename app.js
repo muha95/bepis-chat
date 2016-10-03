@@ -3,24 +3,22 @@ var path = require("path");
 var express = require("express");
 var session = require("express-session");
 var bodyParser = require("body-parser");
-
-var usersRouter = require("./app/routes/user.controller.js");
-
-var MONGODB_URI;
+var mongoose = require("mongoose");
 
 if(process.argv[2]) {
 	process.env.MONGODB_URI = process.argv[2];
-} else {
+} else if(!process.env.MONGODB_URI) {
 	process.env.MONGODB_URI = "mongodb://localhost:27017/bepis";
 }
 
-MONGODB_URI = process.env.MONGODB_URI;
-
-if(!MONGODB_URI) {
-	console.error("ERROR: MONGODB_URI Environment Variable undefined!");
-	console.error("Terminating server...");
-	process.exit(1);
-}
+mongoose.connect(process.env.MONGODB_URI, function(err) {
+	if(err) {
+		console.error("ERROR: Unable to connect to mongodb!");
+		console.error(err);
+		console.error("Terminating server...");
+		process.exit(1);
+	}
+});
 
 var app = express();
 // Initialise a httpServer instance with the express instance
@@ -57,11 +55,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTES - may move routes into it's own module as the
 // server API grows.
-
-
 app.get("/", function(req, res) {
 	res.sendFile("index.html");
 });
+
+var usersRouter = require("./app/routes/user.controller.js");
 
 app.use("/", usersRouter);
 
