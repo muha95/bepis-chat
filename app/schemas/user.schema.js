@@ -4,15 +4,13 @@ const SALT_ROUNDS = 10; // used to salt a string 2^n times.
 
 var Schema = mongoose.Schema;
 
-module.exports = UserSchema;
-
 var UserSchema = new Schema({
     username:
     {
         type: String,
         lowercase: true,
         required: true,
-        index: { unique: true }
+        index: { unique: true },
         validate:
         {
             validator: function(input) {
@@ -40,7 +38,7 @@ var UserSchema = new Schema({
               // --- On each new lookahead the cursor is reset to the beginning of the string.
               return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[A-Za-z0-9]{8,}$/.test(input);
             },
-            message: "Password must contain at 8 characters, "+
+            message: "Password must contain at least 8 characters, "+
                      "include at least one lowercase, uppercase and numerical character"
         }
     },
@@ -95,3 +93,5 @@ UserSchema.pre("save", function(next) {
         }
     });
 });
+
+module.exports = UserSchema;
