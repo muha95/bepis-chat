@@ -1,10 +1,14 @@
 var router = require("express").Router();
 var path = require("path");
-var UserModel = require(__dirname, "..", "models", "user.model.js");
 
 var staticFilesPath = path.join(__dirname, "..", "public");
 
-module.exports = router;
+var UserModel;
+
+module.exports = function(mongoose) {
+	UserModel = require(path.join(__dirname, "..", "models", "user.model.js"))(mongoose);
+	return router;
+}; 
 
 router.get("/login", function(req, res) {
 	res.sendFile(path.join(staticFilesPath, "login.html"));

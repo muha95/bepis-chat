@@ -17,6 +17,8 @@ mongoose.connect(process.env.MONGODB_URI, function(err) {
 		console.error(err);
 		console.error("Terminating server...");
 		process.exit(1);
+	} else {
+		console.log("MongoDB connected successfully!");
 	}
 });
 
@@ -59,7 +61,7 @@ app.get("/", function(req, res) {
 	res.sendFile("index.html");
 });
 
-var usersRouter = require("./app/routes/user.controller.js");
+var usersRouter = require(path.join(__dirname, "app", "routes", "user.controller.js"))(mongoose);
 
 app.use("/", usersRouter);
 
