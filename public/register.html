@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bepis - Register</title>
+    <style>
+      form > div {
+        margin: 3px 0px;
+      }
+    </style>
+	</head>
+	<body>
+		<h1>Bepis - Register</h1>
+		<form action="/register" method="post">
+			<div>
+        <label for="username">Username</label>
+			  <input type="text" name="username" required/>
+        <span>Minimum 4 alphanumeric characters</span>
+      </div>
+      <div>
+        <label for="password">Password</label>
+			  <input type="password" name="password" required/>
+        <span>Minimum 8 characters. Must contain one lowercase, uppercase and numerical character.</span>
+      </div>
+      <div>
+        <label for="email">Email</label>
+			  <input type="email" name="email" required/>
+      </div>
+      <div>
+        <label for="firstName">First Name</label>
+        <input type="text" name="firstName" required/>
+      </div>
+      <div>
+        <label for="lastName">Surname</label>
+        <input type="text" name="lastName" required/>
+      </div>
+      <div>
+        <button type="submit">Register</button>
+      </div>
+		</form>
+	</body>
+</html>

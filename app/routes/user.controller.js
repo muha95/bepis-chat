@@ -15,7 +15,7 @@ router.get("/login", function(req, res) {
 });
 
 router.post("/login", function(req, res) {
-	var query = UserModel.findOne({username: req.body.username});
+	var query = UserModel.findOne({username: req.body.username.toLowerCase()});
 	query.exec(function(err, user) {
 		var userFromDB = user;
 		if(err) {
@@ -31,6 +31,7 @@ router.post("/login", function(req, res) {
 				if(result) {
 					 req.session.userID = userFromDB._id;
 					 req.session.username = userFromDB.username;
+					 console.log(`${userFromDB.username} logged in successfully!`);
 					 res.redirect("/memberonly");
 				} else {
 					 res.redirect("/login");
@@ -43,13 +44,28 @@ router.post("/login", function(req, res) {
 	});
 });
 
+router.get("/register", function(req, res) {
+	res.sendFile(path.join(staticFilesPath, "register.html"));
+});
+
 router.post("/register", function(req, res) {
 	var user = new UserModel({
 		username: req.body.username,
 		password: req.body.password,
 		email: req.body.email,
-    	firstName: req.body.firstName,
-    	lastName: req.body.lastName
+    firstName: req.body.firstName,
+    lastName: req.body.lastName
+	});
+
+	user.save(function(err) {
+		if(err) {
+			console.log(err);
+			res.redirect("/register");
+		} else {
+			req.session.userID = user._id;
+			req.session.username = user.username;
+			res.redirect("/memberonly");
+		}
 	});
 });
 
@@ -65,6 +81,7 @@ router.get("/memberonly", function(req, res) {
 					res.type("text/html");
 					res.end(`<h1>Member-Only Area</h1>
 										<p>Welcome to the member-only area ${user.firstName} ${user.lastName}!!!</p>
+										<p>Joined: ${user.joined.toString()}</p>
 										<h4><a href="/logout">Logout</a></h4>`);
 				} else {
 					res.redirect("/login");
