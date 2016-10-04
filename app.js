@@ -11,6 +11,8 @@ if(process.argv[2]) {
 	process.env.MONGODB_URI = "mongodb://localhost:27017/bepis";
 }
 
+console.log(`Connecting to MongoDB @ ${process.env.MONGODB_URI}...`);
+
 mongoose.connect(process.env.MONGODB_URI, function(err) {
 	if(err) {
 		console.error("ERROR: Unable to connect to mongodb!");
