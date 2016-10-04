@@ -82,6 +82,7 @@ router.get("/memberonly", function(req, res) {
 					res.end(`<h1>Member-Only Area</h1>
 										<p>Welcome to the member-only area ${user.firstName} ${user.lastName}!!!</p>
 										<p>Joined: ${user.joined.toString()}</p>
+										<p>Admin: ${user.admin ? "Yes" : "No"}</p>
 										<h4><a href="/logout">Logout</a></h4>`);
 				} else {
 					res.redirect("/login");
