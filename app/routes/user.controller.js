@@ -14,10 +14,6 @@ router.get("/login", function(req, res) {
 	res.sendFile(path.join(staticFilesPath, "login.html"));
 });
 
-var users = {
-	test: "test123"
-};
-
 router.post("/login", function(req, res) {
 	var query = UserModel.findOne({username: req.body.username});
 	query.exec(function(err, user) {
@@ -33,7 +29,8 @@ router.post("/login", function(req, res) {
 					res.redirect("/login");
 				}
 				if(result) {
-					 req.session.user = userFromDB;
+					 req.session.userID = userFromDB._id;
+					 req.session.username = userFromDB.username;
 					 res.redirect("/memberonly");
 				} else {
 					 res.redirect("/login");
@@ -57,16 +54,22 @@ router.post("/register", function(req, res) {
 });
 
 router.get("/memberonly", function(req, res) {
-	if(!req.session || !req.session.user) {
+	if(!req.session || (!req.session.userID && !req.session.username)) {
 		return res.redirect("/login");
 	} else {
-		//res.send(`Welcome to the member-only area ${req.session.user.username}!!!`);
-		if(req.session.user) {
-			res.end("Welcome to the member-only area "+req.session.user.username+"!!! \n"
-							+JSON.stringify(req.session.user));
-		} else {
-			res.end("Unable to print user object!");
-		}
+			UserModel.findOne({_id: req.session.userID, username: req.session.username}, function(err, user) {
+				if(err) {
+					console.error(err);
+					res.redirect("/login");
+				} else if(user) {
+					res.type("text/html");
+					res.end(`<h1>Member-Only Area</h1>
+										<p>Welcome to the member-only area ${user.firstName} ${user.lastName}!!!</p>
+										<h4><a href="/logout">Logout</a></h4>`);
+				} else {
+					res.redirect("/login");
+				}
+			});
 	}
 });
 
