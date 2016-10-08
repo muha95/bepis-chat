@@ -2,40 +2,42 @@
 <html>
 	<head>
 		<title>Bepis - Register</title>
-    <style>
-      form > div {
-        margin: 3px 0px;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link href="https://fonts.googleapis.com/css?family=Lobster|Play" rel="stylesheet">
+		<link type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 	</head>
 	<body>
-		<h1>Bepis - Register</h1>
-		<form action="/register" method="post">
-			<div>
-        <label for="username">Username</label>
-			  <input type="text" name="username" required/>
-        <span>Minimum 4 alphanumeric characters</span>
-      </div>
-      <div>
-        <label for="password">Password</label>
-			  <input type="password" name="password" required/>
-        <span>Minimum 8 characters. Must contain one lowercase, uppercase and numerical character.</span>
-      </div>
-      <div>
-        <label for="email">Email</label>
-			  <input type="email" name="email" required/>
-      </div>
-      <div>
-        <label for="firstName">First Name</label>
-        <input type="text" name="firstName" required/>
-      </div>
-      <div>
-        <label for="lastName">Surname</label>
-        <input type="text" name="lastName" required/>
-      </div>
-      <div>
-        <button type="submit">Register</button>
-      </div>
-		</form>
+    <div class="container-fluid">
+      <h1>Bepis - Register</h1>
+      <form action="/register" method="post">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input id="firstName" class="form-control" type="text" name="firstName" required/>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input id="lastName" class="form-control" type="text" name="lastName" required/>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" class="form-control" type="email" name="email" required/>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input id="username" class="form-control" type="text" name="username" required/>
+          <p class="help-block">Minimum 4 alphanumeric characters</p>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" class="form-control" type="password" name="password" required/>
+          <p class="help-block">Minimum 8 characters. Must contain one lowercase, uppercase and numerical character.</p>
+        </div>
+        <div>
+          <button class="btn btn-lg btn-info" type="submit">Register</button>
+        </div>
+      </form>
+    </div>
 	</body>
+  <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="js/form-validation.js"></script>
 </html>
