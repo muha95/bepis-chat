@@ -2,16 +2,38 @@
 <html>
 	<head>
 		<title>Bepis - Login</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link href="https://fonts.googleapis.com/css?family=Lobster|Play" rel="stylesheet">
+		<link type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+		<link type="text/css" href="css/main-styles.css" rel="stylesheet"/>
 	</head>
 	<body>
-		<h1>Bepis - Login</h1>
-		<form action="/login" method="post">
-			<label for="username">Username</label>
-			<input type="text" name="username"/>
-			<label for="password">Password</label>
-			<input type="password" name="password"/>
-			<button type="submit">Log In</button>
-		</form>
-		<h4><a href="/register">Register</a></h4>
+		<div class="container-fluid">
+			<h1 class="page-title">Bepis Chat - Login</h1>
+			<form class="form-horizontal" action="/login" method="post">
+				<div class="form-group">
+					<label class="control-label col-sm-1" for="username">Username</label>
+					<div class="col-sm-11">
+						<input class="form-control" type="text" name="username" required/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-1" for="password">Password</label>
+					<div class="col-sm-11">
+						<input class="form-control" type="password" name="password" required/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-11">
+						<button class="btn btn-default" type="submit">Log In</button>
+					</div>
+				</div>
+				<div class="col-sm-offset-1 col-sm-11 no-padding">
+					<p class="lead"><a href="/register">Not a member? Register here</a></p>
+				</div>
+			</form>
+
+		</div>
 	</body>
+	<script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
 </html>
