@@ -34,7 +34,7 @@ var cookieOptions = {
 	httpOnly: app.get("env") !== "production",
 	secure: app.get("env") === "production",
 	maxAge: 3600 * 12 * 1000
-}
+};
 
 app.use(session({
 	secret: "1234567890KBMD", // Key used to sign the cookie
@@ -59,10 +59,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTES - may move routes into it's own module as the
 // server API grows.
-app.get("/", function(req, res) {
-	res.sendFile("index.html");
-});
-
 var usersRouter = require(path.join(__dirname, "app", "routes", "user.controller.js"))(mongoose);
 
 app.use("/", usersRouter);

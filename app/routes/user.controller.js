@@ -10,6 +10,15 @@ module.exports = function(mongoose) {
 	return router;
 };
 
+router.get("/", function(req, res) {
+	if(req.session.userID && req.session.username) {
+		res.sendFile(path.join(staticFilesPath, "chat.html"));
+	} else {
+		res.redirect("/login");
+	}
+	
+});
+
 router.get("/login", function(req, res) {
 	res.sendFile(path.join(staticFilesPath, "login.html"));
 });
