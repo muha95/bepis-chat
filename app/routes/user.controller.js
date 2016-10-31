@@ -41,7 +41,7 @@ router.post("/login", function(req, res) {
 					 req.session.userID = userFromDB._id;
 					 req.session.username = userFromDB.username;
 					 console.log(`${userFromDB.username} logged in successfully!`);
-					 res.redirect("/memberonly");
+					 res.redirect("/");
 				} else {
 					 res.redirect("/login");
 				}

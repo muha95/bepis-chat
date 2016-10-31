@@ -1,9 +1,12 @@
 /* Main Server for the app */
 var path = require("path");
 var express = require("express");
-var session = require("express-session");
+var expressSession = require("express-session");
+var socketIOSession = require("express-socket.io-session");
+var session;
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+
 
 if(process.argv[2]) {
 	process.env.MONGODB_URI = process.argv[2];
@@ -36,7 +39,7 @@ var cookieOptions = {
 	maxAge: 3600 * 12 * 1000
 };
 
-app.use(session({
+session = expressSession({
 	secret: "1234567890KBMD", // Key used to sign the cookie
 	resave: false, // Don't force-save session data
 	saveUninitialized: false, // Don't save an uninit'd session
@@ -50,7 +53,9 @@ app.use(session({
 	// store - option is defaulted to a new MemoryInstance
 	// this is not good for production env. as it's
 	// prone to memory leaks
-}));
+});
+
+app.use(session);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -67,18 +72,29 @@ app.use("/", usersRouter);
 // TO DO:
 // - Handle broadcasting emitted client events
 // - There will be more crap to do.
+
+io.use(socketIOSession(session, { autoSave: true /* auto-saves session data */ }));
+
 io.on("connection", function(socket) {
-	console.log("A client connected! - " + socket.handshake.address);
+	var userSession = socket.handshake.session;
 
-	socket.emit("bepis-message", "Server: Connection Established!");
+	if(!userSession) {
+		socket.emit("logon failure", { url : "/login"});
+	} else {
+		socket.emit("logon success", { username: userSession.username });
 
-	socket.on("disconnect", function() {
-		console.log("A client disconnected! - " + socket.handshake.address);
-	});
+		console.log("A client connected! - " + socket.handshake.address);
 
-	socket.on("bepis-message", function(msg) {
-		io.emit("bepis-message", msg);
-	});
+		socket.emit("bepis-message", "Server: Connection Established!");
+
+		socket.on("disconnect", function() {
+			console.log("A client disconnected! - " + socket.handshake.address);
+		});
+
+		socket.on("bepis-message", function(msg) {
+			io.emit("bepis-message", userSession.username + ": " + msg);
+		});
+	}
 });
 
 // Begin listening for incoming requests - default is 3000

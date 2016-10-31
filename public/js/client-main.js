@@ -32,6 +32,8 @@ $(window).on("resize", function() {
 	updateLayout($(".container-messages"));
 });
 
+var username;
+
 /* SOCKET HANDLING */
 
 socket.on("connect", function() {
@@ -49,6 +51,14 @@ socket.on("disconnect", function() {
 socket.on("bepis-message", function(msg) {
 	$("#message-list").append($("<li>").text(">	 " + msg));
 	scrollToBottom($(".container-messages"));
+});
+
+socket.on("logon failure", function(url) {
+	window.location.href = url;
+});
+
+socket.on("logon success", function(userData) {
+	username = userData.username;
 });
 
 $("form").submit(function() {
