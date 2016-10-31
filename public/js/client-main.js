@@ -56,7 +56,6 @@ $("form").submit(function() {
 		socket.emit("bepis-message", $("#msg-input").val());
 		$("#msg-input").val("");
 		$(".btn-send-message").blur();
-		$("#msg-input").blur();
 		updateLayout($(".container-messages"));
 		return false;
 	}
