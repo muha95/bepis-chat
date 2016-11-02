@@ -12,8 +12,6 @@ function applyMessageBoxHeight() {
 	$(".container-messages").css("height", messagesHeight);
 }
 
-applyMessageBoxHeight();
-
 function scrollToBottom($element) {
 	if($element[0]) {
 		var scrollHeight = $element[0].scrollHeight;
@@ -31,8 +29,6 @@ function updateLayout($element) {
 $(window).on("resize", function() {
 	updateLayout($(".container-messages"));
 });
-
-var username;
 
 /* SOCKET HANDLING */
 
