@@ -53,10 +53,6 @@ socket.on("logon failure", function(url) {
 	window.location.href = url;
 });
 
-socket.on("logon success", function(userData) {
-	username = userData.username;
-});
-
 $("form").submit(function() {
 	if($("#msg-input").val()) {
 		socket.emit("bepis-message", $("#msg-input").val());
