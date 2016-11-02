@@ -14,7 +14,7 @@ if(process.argv[2]) {
 	process.env.MONGODB_URI = "mongodb://localhost:27017/bepis";
 }
 
-console.log(`Connecting to MongoDB @ ${process.env.MONGODB_URI}...`);
+console.log(`Connecting to MongoDB @ ${process.env.MONGODB_URI}`);
 
 mongoose.connect(process.env.MONGODB_URI, function(err) {
 	if(err) {
@@ -83,16 +83,10 @@ io.on("connection", function(socket) {
 	} else {
 		socket.emit("logon success", { username: userSession.username });
 
-		console.log("A client connected! - " + socket.handshake.address);
-
 		socket.emit("bepis-message", "Server: Connection Established!");
 
-		socket.on("disconnect", function() {
-			console.log("A client disconnected! - " + socket.handshake.address);
-		});
-
 		socket.on("bepis-message", function(msg) {
-			io.emit("bepis-message", userSession.username + ": " + msg);
+			io.emit("bepis-message", `${userSession.username}: ${msg}`);
 		});
 	}
 });
@@ -100,5 +94,5 @@ io.on("connection", function(socket) {
 // Begin listening for incoming requests - default is 3000
 var port = process.env.PORT || 3000;
 httpServer.listen(process.env.PORT || 3000, function() {
-	console.log("Bepis Chat - Server started @ PORT " + port);
+	console.log(`Bepis Chat - Server started @ PORT ${port}`);
 });
