@@ -1,5 +1,6 @@
 /* Main Server for the app */
 var path = require("path");
+var cors = require("cors");
 var express = require("express");
 var expressSession = require("express-session");
 var socketIOSession = require("express-socket.io-session");
@@ -55,6 +56,7 @@ session = expressSession({
 	// prone to memory leaks
 });
 
+app.use(cors());
 app.use(session);
 
 app.use(bodyParser.urlencoded({ extended: false }));
