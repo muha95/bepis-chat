@@ -62,8 +62,8 @@ router.post("/register", function(req, res) {
 		username: req.body.username,
 		password: req.body.password,
 		email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName
+    	firstName: req.body.firstName,
+    	lastName: req.body.lastName
 	});
 
 	user.save(function(err) {
@@ -73,31 +73,9 @@ router.post("/register", function(req, res) {
 		} else {
 			req.session.userID = user._id;
 			req.session.username = user.username;
-			res.redirect("/memberonly");
+			res.redirect("/");
 		}
 	});
-});
-
-router.get("/memberonly", function(req, res) {
-	if(!req.session || (!req.session.userID && !req.session.username)) {
-		return res.redirect("/login");
-	} else {
-			UserModel.findOne({_id: req.session.userID, username: req.session.username}, function(err, user) {
-				if(err) {
-					console.error(err);
-					res.redirect("/login");
-				} else if(user) {
-					res.type("text/html");
-					res.end(`<h1>Member-Only Area</h1>
-										<p>Welcome to the member-only area ${user.firstName} ${user.lastName}!!!</p>
-										<p>Joined: ${user.joined.toString()}</p>
-										<p>Admin: ${user.admin ? "Yes" : "No"}</p>
-										<h4><a href="/logout">Logout</a></h4>`);
-				} else {
-					res.redirect("/login");
-				}
-			});
-	}
 });
 
 router.get("/logout", function(req, res) {
