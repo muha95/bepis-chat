@@ -4,11 +4,7 @@
   "description": "Simple chatting app built with Node.JS and Socket.IO",
   "main": "app.js",
   "scripts": {
-    "build-front-end": "bower install",
-    "build-back-end": "npm install",
-    "start": "npm run build-back-end && npm run build-front-end && node app.js",
-    "installDependencies": "npm run build-back-end && npm run build-front-end",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm install && node app.js"
   },
   "repository": {
     "type": "git",
@@ -28,13 +24,14 @@
   },
   "homepage": "https://github.com/muha95/bepis-chat#readme",
   "dependencies": {
-    "bcrypt": "^0.8.7",
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.15.2",
-    "bower": "^1.7.9",
+    "bootstrap": "^4.1.1",
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "express-socket.io-session": "^1.3.1",
+    "jquery": "^3.3.1",
     "mongoose": "^4.6.1",
     "socket.io": "^1.4.8"
   }
