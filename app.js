@@ -63,6 +63,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/vendor/boostrap', express.static(path.join(__dirname, 'node_modules', 'boostrap')));
+app.use('/vendor/jquery', express.static(path.join(__dirname, 'node_modules', 'jquery')));
 
 // ROUTES - may move routes into it's own module as the
 // server API grows.
