@@ -63,7 +63,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, 'node_modules', 'boostrap', 'dist')));
+app.use(express.static(path.join(__dirname, 'node_modules', 'boostrap', 'dist', 'css')));
 app.use(express.static(path.join(__dirname, 'node_modules', 'jquery', 'dist')));
 
 // ROUTES - may move routes into it's own module as the
