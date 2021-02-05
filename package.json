@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/muha95/bepis-chat#readme",
   "dependencies": {
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.1.1",
     "cors": "^2.8.1",
